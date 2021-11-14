@@ -34,7 +34,7 @@ console.log(guy.introduce());
 //
 //
 // ----
-// Exercise 1
+// Exercise 2
 
 console.log("\n\n---------------");
 console.log("   Exercise 2  ");
