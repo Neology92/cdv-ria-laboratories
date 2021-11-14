@@ -92,7 +92,9 @@ const sum2 = (...args) => {
     .map((arg) => parseFloat(arg))
     .filter((arg) => !isNaN(arg));
 
-  return numbers.length ? numbers.reduce((a, b) => a + b, 0) : NaN;
+  return numbers.length 
+    ? numbers.reduce((a, b) => a + b, 0) 
+    : NaN;
 };
 
 console.log("\n2.\n- - -");
