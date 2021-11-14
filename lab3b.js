@@ -51,9 +51,9 @@ class Employee extends Person {
 // 2
 console.log("\n2.\n- - -");
 const empl2 = new Employee();
-console.log(empl2.introduce());
+console.log(empl2.introduce()); // I'm Marek, and I'm 25 years old and I work as engineer.
 
 empl2.setName("Carl");
 empl2.setAge(66);
-q;
-console.log(empl2.introduce());
+
+console.log(empl2.introduce()); // I'm Carl, and I'm 66 years old and I work as engineer.

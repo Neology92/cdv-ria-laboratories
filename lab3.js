@@ -18,7 +18,7 @@ class Person {
 
 // 2
 console.log("\n2.\n- - -");
-const guy = new Person("John", 27);
+const guy = new Person("John", 27); // I'm John, and I'm 27 years old.
 console.log(guy.introduce());
 
 // 3
@@ -27,7 +27,7 @@ guy.age += 12;
 
 // 4
 console.log("\n4.\n- - -");
-console.log(guy.introduce());
+console.log(guy.introduce()); // I'm Carl, and I'm 39 years old.
 
 //
 //
@@ -58,7 +58,7 @@ class Employee extends Person {
 // 2
 console.log("\n2.\n- - -");
 const employee = new Employee();
-console.log(employee.introduce());
+console.log(employee.introduce()); // I'm Marek, and I'm 25 years old and I work as engineer.
 
 // 3
 
@@ -67,4 +67,4 @@ employee.age = 36;
 
 // 4
 console.log("\n4.\n- - -");
-console.log(employee.introduce());
+console.log(employee.introduce()); // I'm Chris, and I'm 36 years old and I work as engineer.
