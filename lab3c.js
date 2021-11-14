@@ -15,22 +15,22 @@ class Person {
   }
 
   introduce() {
-    return `I'm ${this.getName()}, and I'm ${this.getAge()} years old.`;
+    return `I'm ${this.name}, and I'm ${this.age} years old.`;
   }
 
-  setName(newName) {
+  set name(newName) {
     this.#name = Person.formatName(newName);
   }
 
-  setAge(newAge) {
+  set age(newAge) {
     this.#age = newAge;
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 
-  getAge() {
+  get age() {
     return this.#age;
   }
 
@@ -57,7 +57,7 @@ console.log("\n3.\n- - -");
 const empl2 = new Employee("heNRi");
 console.log(empl2.introduce()); // I'm Henri, and I'm 25 years old and I work as engineer.
 
-empl2.setName("sImoN");
-empl2.setAge(42);
+empl2.name = "sImoN";
+empl2.age = 42;
 
 console.log(empl2.introduce()); // I'm Simon, and I'm 42 years old and I work as engineer.

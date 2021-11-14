@@ -15,22 +15,22 @@ class Person {
   }
 
   introduce() {
-    return `I'm ${this.getName()}, and I'm ${this.getAge()} years old.`;
+    return `I'm ${this.name}, and I'm ${this.age} years old.`;
   }
 
-  setName(newName) {
+  set name(newName) {
     this.#name = Person.formatName(newName);
   }
 
-  setAge(newAge) {
+  set age(newAge) {
     this.#age = Person.validateAge(newAge);
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 
-  getAge() {
+  get age() {
     return this.#age;
   }
 
@@ -62,8 +62,8 @@ class Employee extends Person {
 // 2
 const employee = new Employee();
 
-employee.setAge("asd"); // throws TypeError
-employee.setAge("-1"); // throws RangeError
-employee.setAge(-1); // throws RangeError
+employee.age = "asd"; // throws TypeError
+employee.age = "-1"; // throws RangeError
+employee.age = -1; // throws RangeError
 
 // Program kończy działanie na pierwszym napotkanym błędzie.

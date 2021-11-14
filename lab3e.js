@@ -39,22 +39,22 @@ class Person {
   }
 
   introduce() {
-    return `I'm ${this.getName()}, and I'm ${this.getAge()} years old.`;
+    return `I'm ${this.name}, and I'm ${this.age} years old.`;
   }
 
-  setName(newName) {
+  set name(newName) {
     this.#name = Person.formatName(newName);
   }
 
-  setAge(newAge) {
+  set age(newAge) {
     this.#age = this.#validateAge(newAge);
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 
-  getAge() {
+  get age() {
     return this.#age;
   }
 
@@ -79,8 +79,8 @@ class Employee extends Person {
 // 2
 const employee = new Employee();
 
-employee.setAge("asds"); // TypeError: age must be of number type!
-employee.setAge("-1"); // RangeError: age must be greater than 0!
-employee.setAge(-1); // RangeError: age must be greater than 0!
+employee.age = "asds"; // TypeError: age must be of number type!
+employee.age = "-1"; // RangeError: age must be greater than 0!
+employee.age = -1; // RangeError: age must be greater than 0!
 
-console.log("\nAge: ", employee.getAge()); // default age
+console.log("\nAge: ", employee.age); // default age
