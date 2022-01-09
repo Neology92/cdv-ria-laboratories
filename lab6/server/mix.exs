@@ -23,7 +23,8 @@ defmodule StudentsApi.MixProject do
   defp deps do
     [
       {:plug_cowboy, "~> 2.2"},
-      {:poison, "~> 4.0.1"}
+      {:poison, "~> 4.0.1"},
+      {:exsync, "~> 0.2", only: :dev}
     ]
   end
 end

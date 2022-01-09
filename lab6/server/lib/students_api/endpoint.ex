@@ -13,9 +13,11 @@ defmodule StudentsApi.Endpoint do
   plug(:dispatch)
 
   get "/api/students" do
+    students = StudentsApi.DataAgent.get()
+
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Poison.encode!(%{response: "Hello world!"}))
+    |> send_resp(200, Poison.encode!(students))
   end
 
   match _ do
