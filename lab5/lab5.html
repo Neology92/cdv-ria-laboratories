@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Lab 5</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#calcJQuery").click(function () {
+          var x = $("#x").val();
+          var y = $("#y").val();
+
+          $.ajax({
+            url: "http://localhost:4001/api/math",
+            dataType: "json",
+            type: "GET",
+            contentType: "application/json",
+            data: { x, y },
+            success: ({ sum, diff, prod, quo }) => {
+              $("#sum").text(sum);
+              $("#difference").text(diff);
+              $("#product").text(prod);
+              $("#quotient").text(quo);
+            },
+            fail: (xhr, ex) => {
+              console.log("error");
+              console.log(xhr, ex);
+            },
+          });
+        });
+      });
+
+      window.onload = () => {
+        document.getElementById("calcVanillaJS").onclick = () => {
+          const x = document.getElementById("x").value;
+          const y = document.getElementById("y").value;
+          let xhr = null;
+
+          if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+          } else if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+
+          xhr.open(
+            "GET",
+            "http://localhost:4001/api/math" + formatParams({ x, y })
+          );
+          xhr.responseType = "json";
+          xhr.send(null);
+          xhr.onload = () => {
+            const { sum, diff, prod, quo } = xhr.response;
+            document.getElementById("sum").innerText = sum;
+            document.getElementById("difference").innerText = diff;
+            document.getElementById("product").innerText = prod;
+            document.getElementById("quotient").innerText = quo;
+          };
+        };
+      };
+
+      const formatParams = (params) =>
+        "?" +
+        Object.keys(params)
+          .map((key) => key + "=" + params[key])
+          .join("&");
+    </script>
+    <div>
+      <h1>Calculations</h1>
+      <form>
+        x = <input type="text" id="x" /> y = <input type="text" id="y" />
+        <input type="button" id="calcJQuery" value="Call API (jQuery)" />
+        <input type="button" id="calcVanillaJS" value="Call API (vanilla JS)" />
+      </form>
+      x + y = <span id="sum"></span><br />
+      x - y = <span id="difference"></span><br />
+      x * y = <span id="product"></span><br />
+      x / y = <span id="quotient"></span><br />
+    </div>
+  </body>
+</html>
