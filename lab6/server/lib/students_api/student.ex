@@ -1,3 +1,5 @@
 defmodule StudentsApi.Student do
-  defstruct [:id, :index, :fist_name, :last_name]
+  @derive [Poison.Encoder]
+
+  defstruct [:id, :index, :first_name, :last_name]
 end
