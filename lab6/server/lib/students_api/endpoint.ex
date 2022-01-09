@@ -15,10 +15,17 @@ defmodule StudentsApi.Endpoint do
 
   plug(:dispatch)
 
+  get "/api/students/:id" do
+    IO.inspect(conn.params["id"])
+    student = DataAgent.get_student_by_id(conn.params["id"])
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(student))
+  end
+
   get "/api/students" do
     students = DataAgent.get_all_students()
-
-    IO.inspect(students)
 
     conn
     |> put_resp_content_type("application/json")
@@ -38,7 +45,7 @@ defmodule StudentsApi.Endpoint do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Poison.encode!(students))
+    |> send_resp(200, Poison.encode!(%{status: 200, message: "success"}))
   end
 
   match _ do
