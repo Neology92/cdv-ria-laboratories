@@ -25,7 +25,7 @@ defmodule StudentsApi.Endpoint do
 
   put "/api/students/:id" do
     res =
-      case DataAgent.update_student(params) do
+      case DataAgent.update_student(conn.params) do
         :ok -> %{status: 200, message: "success"}
         err -> %{status: 500, message: err}
       end
@@ -45,7 +45,7 @@ defmodule StudentsApi.Endpoint do
 
   post "/api/students" do
     res =
-      case DataAgent.push_student(params) do
+      case DataAgent.push_student(conn.params) do
         :ok -> %{status: 200, message: "success"}
         err -> %{status: 500, message: err}
       end

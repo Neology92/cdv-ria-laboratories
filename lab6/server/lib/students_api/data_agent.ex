@@ -1,6 +1,8 @@
 defmodule StudentsApi.DataAgent do
   use Agent
 
+  alias StudentsApi.Student
+
   def start_link(initial_students) when is_list(initial_students) do
     Agent.start_link(fn -> {initial_students, length(initial_students)} end, name: __MODULE__)
   end
@@ -28,7 +30,7 @@ defmodule StudentsApi.DataAgent do
   end
 
   def update_student(params) do
-    params = keys_to_atoms(conn.params)
+    params = keys_to_atoms(params)
     id = String.to_integer(params[:id])
     params = Map.delete(params, :id)
 
@@ -43,19 +45,27 @@ defmodule StudentsApi.DataAgent do
   end
 
   def push_student(params) do
-    params = keys_to_atoms(conn.params)
+    params = keys_to_atoms(params)
 
     new_student = %Student{
       id: DataAgent.get_next_id(),
-      index: conn.params[:index],
-      first_name: conn.params[:first_name],
-      last_name: conn.params[:last_name]
+      index: params[:index],
+      first_name: params[:first_name],
+      last_name: params[:last_name]
     }
 
-    Agent.update(__MODULE__, fn {data, next_id} -> {[new_item | data], next_id} end)
+    Agent.update(__MODULE__, fn {data, next_id} -> {[new_student | data], next_id} end)
   end
 
   def update_students(new_students) do
     Agent.update(__MODULE__, fn {_, next_id} -> {new_students, next_id} end)
+  end
+
+  # ------------------------
+  # Private
+  # ------------------------
+
+  defp keys_to_atoms(map) do
+    Enum.reduce(map, %{}, fn {key, val}, acc -> Map.put(acc, String.to_atom(key), val) end)
   end
 end
