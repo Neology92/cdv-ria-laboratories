@@ -27,17 +27,19 @@ defmodule StudentsApi.DataAgent do
     end)
   end
 
-  # def update_student(params) do
-  #   id = String.to_integer(params["id"])
-  #   Agent.update(__MODULE__, fn {data, next_id} ->
-  #     data
-  #     |> Enum.map(fn elem ->
-  #       if(elem.id == id), do: Map.
-  #     end)
-  #     |>
-  #     {[new_item | data], next_id}
-  #   end)
-  # end
+  def update_student(params) do
+    id = String.to_integer(params[:id])
+    params = Map.delete(params, :id)
+
+    Agent.update(__MODULE__, fn {data, next_id} ->
+      new_data =
+        Enum.map(data, fn elem ->
+          if elem.id == id, do: Map.merge(elem, params) |> IO.inspect(), else: elem
+        end)
+
+      {new_data, next_id}
+    end)
+  end
 
   def push_student(new_item) do
     Agent.update(__MODULE__, fn {data, next_id} -> {[new_item | data], next_id} end)
