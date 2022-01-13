@@ -24,14 +24,15 @@ defmodule StudentsApi.Endpoint do
   end
 
   put "/api/students/:id" do
-    params = keys_to_atoms(conn.params)
-
-    DataAgent.update_student(params)
-    |> IO.inspect()
+    res =
+      case DataAgent.update_student(params) do
+        :ok -> %{status: 200, message: "success"}
+        err -> %{status: 500, message: err}
+      end
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Poison.encode!(%{status: 200, message: "success"}))
+    |> send_resp(200, Poison.encode!(res))
   end
 
   get "/api/students" do
@@ -43,19 +44,15 @@ defmodule StudentsApi.Endpoint do
   end
 
   post "/api/students" do
-    %Student{
-      id: DataAgent.get_next_id(),
-      index: conn.params["index"],
-      first_name: conn.params["firstName"],
-      last_name: conn.params["lastName"]
-    }
-    |> DataAgent.push_student()
-
-    students = DataAgent.get_all_students()
+    res =
+      case DataAgent.push_student(params) do
+        :ok -> %{status: 200, message: "success"}
+        err -> %{status: 500, message: err}
+      end
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Poison.encode!(%{status: 200, message: "success"}))
+    |> send_resp(200, Poison.encode!(res))
   end
 
   match _ do

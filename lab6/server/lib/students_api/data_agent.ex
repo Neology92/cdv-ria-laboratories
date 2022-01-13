@@ -28,20 +28,30 @@ defmodule StudentsApi.DataAgent do
   end
 
   def update_student(params) do
+    params = keys_to_atoms(conn.params)
     id = String.to_integer(params[:id])
     params = Map.delete(params, :id)
 
     Agent.update(__MODULE__, fn {data, next_id} ->
       new_data =
         Enum.map(data, fn elem ->
-          if elem.id == id, do: Map.merge(elem, params) |> IO.inspect(), else: elem
+          if elem.id == id, do: Map.merge(elem, params), else: elem
         end)
 
       {new_data, next_id}
     end)
   end
 
-  def push_student(new_item) do
+  def push_student(params) do
+    params = keys_to_atoms(conn.params)
+
+    new_student = %Student{
+      id: DataAgent.get_next_id(),
+      index: conn.params[:index],
+      first_name: conn.params[:first_name],
+      last_name: conn.params[:last_name]
+    }
+
     Agent.update(__MODULE__, fn {data, next_id} -> {[new_item | data], next_id} end)
   end
 
