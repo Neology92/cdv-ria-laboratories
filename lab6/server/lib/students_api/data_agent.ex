@@ -61,6 +61,14 @@ defmodule StudentsApi.DataAgent do
     Agent.update(__MODULE__, fn {_, next_id} -> {new_students, next_id} end)
   end
 
+  def remove_student(id) do
+    id = String.to_integer(id)
+
+    Agent.update(__MODULE__, fn {students, next_id} ->
+      {Enum.reject(students, &(&1.id == id)), next_id}
+    end)
+  end
+
   # ------------------------
   # Private
   # ------------------------

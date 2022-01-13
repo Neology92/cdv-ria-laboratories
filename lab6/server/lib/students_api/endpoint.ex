@@ -23,6 +23,18 @@ defmodule StudentsApi.Endpoint do
     |> send_resp(200, Poison.encode!(student))
   end
 
+  delete "/api/students/:id" do
+    res =
+      case DataAgent.remove_student(conn.params["id"]) do
+        :ok -> %{status: 200, message: "success"}
+        err -> %{status: 500, message: err}
+      end
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(res))
+  end
+
   put "/api/students/:id" do
     res =
       case DataAgent.update_student(conn.params) do
