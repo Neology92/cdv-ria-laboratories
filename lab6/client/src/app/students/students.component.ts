@@ -21,4 +21,12 @@ export class StudentsComponent implements OnInit {
       .getStudents()
       .subscribe((students) => (this.students = students));
   }
+
+  create(index: number, firstName: string, lastName: string): void {
+    this.studentService
+      .createStudent(new Student(index, firstName, lastName))
+      .subscribe((student) => {
+        this.students.push(student);
+      });
+  }
 }
