@@ -10,37 +10,48 @@ defmodule StudentsApiWeb.Endpoint do
     signing_salt: "+Y42PV2i"
   ]
 
-  socket "/socket", StudentsApiWeb.UserSocket,
+  socket("/socket", StudentsApiWeb.UserSocket,
     websocket: true,
     longpoll: false
+  )
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
-  plug Plug.Static,
+  plug(Plug.Static,
     at: "/",
     from: :students_api,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
+  )
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :students_api
+    plug(Phoenix.CodeReloader)
+    plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :students_api)
   end
 
-  plug Plug.RequestId
-  plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
+  plug(Plug.RequestId)
+  plug(Plug.Telemetry, event_prefix: [:phoenix, :endpoint])
 
-  plug Plug.Parsers,
+  plug(Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
+  )
 
-  plug Plug.MethodOverride
-  plug Plug.Head
-  plug Plug.Session, @session_options
-  plug StudentsApiWeb.Router
+  plug(Plug.MethodOverride)
+  plug(Plug.Head)
+
+  plug(Corsica,
+    max_age: 600,
+    origins: "*",
+    expose_headers: ~w(X-Foo),
+    allow_headers: ["content-type"]
+  )
+
+  plug(Plug.Session, @session_options)
+  plug(StudentsApiWeb.Router)
 end

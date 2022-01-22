@@ -4,7 +4,6 @@ defmodule StudentsApiWeb.Router do
   pipeline :api do
     plug(:accepts, ["json"])
     plug(ProperCase.Plug.SnakeCaseParams)
-    plug(CORSPlug)
   end
 
   scope "/api", StudentsApiWeb do

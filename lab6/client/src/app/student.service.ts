@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'applicaiton/json' }),
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 interface ResponseArray {

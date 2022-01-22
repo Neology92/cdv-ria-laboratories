@@ -41,7 +41,7 @@ defmodule StudentsApi.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:cors_plug, "~> 2.0"},
+      {:corsica, "~> 1.1.3"},
       {:proper_case, "~> 1.3.1"}
     ]
   end

@@ -4,14 +4,12 @@ defmodule StudentsApiWeb.StudentController do
   alias StudentsApi.Students
   alias StudentsApi.Students.Student
 
-  action_fallback StudentsApiWeb.FallbackController
-
   def index(conn, _params) do
     students = Students.list_students()
     render(conn, "index.json", students: students)
   end
 
-  def create(conn, %{"student" => student_params}) do
+  def create(conn, student_params) do
     with {:ok, %Student{} = student} <- Students.create_student(student_params) do
       conn
       |> put_status(:created)
