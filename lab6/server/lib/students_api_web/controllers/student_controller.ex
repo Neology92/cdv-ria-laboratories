@@ -23,7 +23,7 @@ defmodule StudentsApiWeb.StudentController do
     render(conn, "show.json", student: student)
   end
 
-  def update(conn, %{"id" => id, "student" => student_params}) do
+  def update(conn, %{"id" => id} = student_params) do
     student = Students.get_student!(id)
 
     with {:ok, %Student{} = student} <- Students.update_student(student, student_params) do
