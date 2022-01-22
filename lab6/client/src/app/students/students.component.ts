@@ -29,4 +29,9 @@ export class StudentsComponent implements OnInit {
         this.students.push(student);
       });
   }
+
+  delete(student: Student): void {
+    this.students = this.students.filter((s) => s.id !== student.id);
+    this.studentService.deleteStudent(student).subscribe();
+  }
 }
