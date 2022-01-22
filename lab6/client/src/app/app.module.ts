@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentService } from './student.service';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
-  declarations: [AppComponent, StudentsComponent, StudentDetailComponent],
+  declarations: [AppComponent, StudentsComponent, StudentDetailComponent, AboutComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [StudentService],
   bootstrap: [AppComponent],
