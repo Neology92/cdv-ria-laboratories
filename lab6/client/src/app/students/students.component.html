@@ -25,12 +25,14 @@
 </div>
 
 <h2>List of students</h2>
-<ul>
+<ul class="students">
   <li *ngFor="let student of students">
     <button title="Delete" (click)="delete(student)">Delete</button>
-    &nbsp;<span>{{ student.index }}</span> &nbsp;<span>{{
-      student.lastName
-    }}</span>
-    &nbsp;<span>{{ student.firstName }}</span>
+    <a routerLink="/detail/{{ student.id }}">
+      &nbsp;<span>{{ student.index }}</span> &nbsp;<span>{{
+        student.lastName
+      }}</span>
+      &nbsp;<span>{{ student.firstName }}</span>
+    </a>
   </li>
 </ul>
