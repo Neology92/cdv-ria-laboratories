@@ -24,7 +24,8 @@ defmodule StudentsApi.MixProject do
     [
       {:plug_cowboy, "~> 2.2"},
       {:poison, "~> 4.0.1"},
-      {:exsync, "~> 0.2", only: :dev}
+      {:exsync, "~> 0.2", only: :dev},
+      {:cors_plug, "~> 2.0"}
     ]
   end
 end

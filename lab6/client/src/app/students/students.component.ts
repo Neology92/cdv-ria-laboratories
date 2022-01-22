@@ -8,17 +8,18 @@ import { StudentService } from '../student.service';
   styleUrls: ['./students.component.css'],
 })
 export class StudentsComponent implements OnInit {
+  students!: Student[];
+
   constructor(private studentService: StudentService) {}
 
   ngOnInit(): void {
     this.getStudents();
   }
 
-  students!: Student[];
-
   getStudents(): void {
-    this.studentService
-      .getStudents()
-      .subscribe((students) => (this.students = students));
+    this.studentService.getStudents().subscribe((students) => {
+      this.students = students;
+      console.log(students);
+    });
   }
 }

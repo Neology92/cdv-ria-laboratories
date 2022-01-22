@@ -13,6 +13,8 @@ defmodule StudentsApi.Endpoint do
     json_decoder: Poison
   )
 
+  plug(CORSPlug)
+
   plug(:dispatch)
 
   get "/api/students/:id" do

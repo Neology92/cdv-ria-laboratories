@@ -50,8 +50,8 @@ defmodule StudentsApi.DataAgent do
     new_student = %Student{
       id: DataAgent.get_next_id(),
       index: params[:index],
-      first_name: params[:first_name],
-      last_name: params[:last_name]
+      firstName: params[:firstName],
+      lastName: params[:lastName]
     }
 
     Agent.update(__MODULE__, fn {data, next_id} -> {[new_student | data], next_id} end)

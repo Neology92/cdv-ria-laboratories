@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Student } from './student';
 import { Observable, of } from 'rxjs';
 
@@ -6,14 +7,17 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class StudentService {
-  constructor() {}
+  private studentsApiUrl: string = 'http://localhost:4000/api/students';
 
-  students: Student[] = [
-    { id: 1, index: 123456, firstName: 'Marek', lastName: 'Wojciechowski' },
-    { id: 2, index: 123457, firstName: 'Krzysztof', lastName: 'Jankiewicz' },
-  ];
+  // students: Student[] = [
+  //   { id: 1, index: 123456, firstName: 'Marek', lastName: 'Wojciechowski' },
+  //   { id: 2, index: 123457, firstName: 'Krzysztof', lastName: 'Jankiewicz' },
+  // ];
+
+  constructor(private http: HttpClient) {}
 
   getStudents(): Observable<Student[]> {
-    return of(this.students);
+    // return of(this.students);
+    return this.http.get<Student[]>(this.studentsApiUrl);
   }
 }
