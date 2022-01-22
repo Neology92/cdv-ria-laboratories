@@ -9,15 +9,14 @@ import { Observable, of } from 'rxjs';
 export class StudentService {
   private studentsApiUrl: string = 'http://localhost:4000/api/students';
 
-  // students: Student[] = [
-  //   { id: 1, index: 123456, firstName: 'Marek', lastName: 'Wojciechowski' },
-  //   { id: 2, index: 123457, firstName: 'Krzysztof', lastName: 'Jankiewicz' },
-  // ];
-
   constructor(private http: HttpClient) {}
 
   getStudents(): Observable<Student[]> {
-    // return of(this.students);
     return this.http.get<Student[]>(this.studentsApiUrl);
+  }
+
+  getStudent(id: number): Observable<Student> {
+    const url = `${this.studentsApiUrl}/${id}`;
+    return this.http.get<Student>(url);
   }
 }
